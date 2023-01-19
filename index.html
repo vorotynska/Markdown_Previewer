@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Previewer</title>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+</head>
+
+<body>
+    <div id="app"> </div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel" >
+   
+
+   const EditingBox = (props) => {
+    return <textarea id="editor" onChange={() => props.onChange()}>{props.input}</textarea>;
+}
+
+const PreviewBox = (props) => {
+    return <div id="preview" dangerouslySetInnerHTML={{__html: marked(props.input)}}></div>;
+}
+ class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            input: "# Header"
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+   handleChange(event) {
+    const input = event.target.value
+    this.setState({input})
+   }
+   render(){
+    return (
+      <div id="container">
+        <EditingBox {...this.state} onChange={() => this.handleChange(event)}/>
+        <PreviewBox {...this.state}/>
+      </div>
+    );
+   }
+ }
+
+
+
+
+ 
+
+     
+      
+ReactDOM.render(<App />, document.getElementById("app"));
+       
+      
+ </script>
+   
+
+    
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+
+</body>
+
+</html>
